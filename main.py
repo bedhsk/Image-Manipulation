@@ -1,30 +1,18 @@
-import cv2
 import numpy as np
-import imutils
+import cv2
+import matplotlib.pyplot as plt
 
 image = cv2.imread('src/src.png')
+image = cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Importar imagen en escala de grises
+# image = cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Rotación de imagen
 alto, ancho, _ = image.shape
+M = cv2.getRotationMatrix2D((alto//2, ancho//2), 13, 0.5)
+imgOut = cv2.warpAffine(image, M, (alto, ancho))
 
-# Traslación
-# M = np.float32([[1,0,10], [0,1,100]])
-# imgOut = cv2.warpAffine(image, M, (ancho, alto+1500))
-
-# Rotación
-# M = cv2.getRotationMatrix2D((ancho//2, alto//2), 90, 0.5)
-# imgOut = cv2.warpAffine(image, M, (alto, ancho))
-
-# Escalado
-# imgOut = cv2.resize(image,(361, 250), interpolation=cv2.INTER_CUBIC)
-
-# Escalado relación/aspecto
-# imgOut = imutils.resize(image, width=300)
-# imgOut = imutils.resize(image, height=300)
-
-# Recortar una imagen
-print('image.shape=', image.shape)
-imgOut = image[110:350, 100:300]
-
-cv2.imshow('Imagen de entrada', image)
-cv2.imshow('Imagen de salida', imgOut)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# Mostrar imágen
+plt.imshow(imgOut)
+plt.show()
