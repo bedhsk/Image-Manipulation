@@ -4,7 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 import tkinter
 
-image = cv2.imread('src/src.png')
+image = cv2.imread('poligon.png')
 image = cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # Importar imagen en escala de grises
