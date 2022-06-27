@@ -1,10 +1,9 @@
 import tkinter
 import cv2
+from cv2 import cvtColor
 import numpy as np
 from tkinter import *
-from cv2 import cvtColor
 from PIL import ImageTk, Image
-from main import escala, cut_image
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -23,35 +22,86 @@ def rotate_bound(image, angle):
 
     return cv2.warpAffine(image, M, (nW, nH), borderMode = cv2.BORDER_CONSTANT, borderValue=(101, 146, 186))
 
-from main import escala, cut_image
-
 ventana = tkinter.Tk()
 ventana.geometry("800x650")
 ventana.resizable(False, False)
 ventana.config(background= "#6592ba")
 
-#PESTAÑA 
+# Creación del canvas
+my_canvas = tkinter.Canvas(ventana, width=500, height=550, bg="white")
+my_canvas.pack(pady=20)
 
+# Añadir una imágen al canvas
+image = cv2.imread('src/zero.png')
+image = cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
+im = Image.fromarray(image)
+img = ImageTk.PhotoImage(image=im)
+my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+# Botones de rotación
+def girar_derecha():
+    image = cv2.imread('src/zero.png')
+    image = cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = rotate_bound(image, 30)
+
+    # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
+    im = Image.fromarray(image)
+    img = ImageTk.PhotoImage(image=im)
+    my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+def girar_izquierda():
+    rotatedImg = rotate_bound(image, -10)
+    global img
+    im = Image.fromarray(rotatedImg)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.move(my_image, 0, 0)
+    # my_image = my_canvas.create_image(100, 125, image=img)
+
+# Botones de movimiento
+def arriba():
+    x = 0
+    y = -10
+    my_canvas.move(my_image, x, y)
+
+def abajo():
+    x = 0
+    y = 10
+    my_canvas.move(my_image, x, y)
+
+def derecha():
+    x = 10
+    y = 0
+    my_canvas.move(my_image, x, y)
+
+def izquierda():
+    x = -10
+    y = 0
+    my_canvas.move(my_image, x, y)
+
+#PESTAÑA 
+upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 pslbl = tkinter.Label(ventana, text ="                                     "  , bg ="#3b6a94") 
 pslbl.pack(side= tkinter.RIGHT, fill = tkinter.Y)
 
 
 #fLECHAS
 
-upbtn = tkinter.Button(ventana, text="↑", bg = "#808080")
+upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 upbtn.pack()
 upbtn.place(x= 20, y=600)
 
 
-downbtn = tkinter.Button(ventana, text="↓", bg = "#808080")
+downbtn = tkinter.Button(ventana, text="↓", command=abajo, bg = "#808080")
 downbtn.pack()
 downbtn.place(x=20 , y= 625)
 
-leftbtn = tkinter.Button(ventana, text="←", bg = "#808080")
+leftbtn = tkinter.Button(ventana, text="←", command=izquierda, bg = "#808080")
 leftbtn.pack()
 leftbtn.place(x= 0, y= 625)
 
-rightbtn = tkinter.Button(ventana, text="→", bg = "#808080")
+rightbtn = tkinter.Button(ventana, text="→", command=derecha, bg = "#808080")
 rightbtn.pack()
 rightbtn.place(x=35, y=625)
 
@@ -66,11 +116,11 @@ editorlbl.place(x=700, y=0)
 rtlbl =tkinter.Label(ventana, text = "Rotación", bg= "#3b6a94")
 rtlbl.place(x=700, y= 35)
 
-rdbtn = tkinter.Button(ventana, text="⟳", bg = "#808080")
+rdbtn = tkinter.Button(ventana, text="⟳", command=girar_derecha, bg = "#808080")
 rdbtn.pack()
 rdbtn.place(x= 765 , y= 70 )
 
-ribtn = tkinter.Button(ventana, text="⟲", bg = "#808080")
+ribtn = tkinter.Button(ventana, text="⟲", command=girar_izquierda, bg = "#808080")
 ribtn.pack()
 ribtn.place(x= 730, y=70 )
 
