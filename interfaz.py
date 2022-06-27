@@ -1,10 +1,9 @@
-import cv2
 import tkinter
+import cv2
+from cv2 import cvtColor
 import numpy as np
 from tkinter import *
-from cv2 import cvtColor
 from PIL import ImageTk, Image
-from main import escala, cut_image
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -81,6 +80,14 @@ def izquierda():
     y = 0
     my_canvas.move(my_image, x, y)
 
+#PESTAÑA 
+upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
+pslbl = tkinter.Label(ventana, text ="                                     "  , bg ="#3b6a94") 
+pslbl.pack(side= tkinter.RIGHT, fill = tkinter.Y)
+
+
+#fLECHAS
+
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 upbtn.pack()
 upbtn.place(x= 20, y=600)
@@ -99,10 +106,13 @@ rightbtn.pack()
 rightbtn.place(x=35, y=625)
 
 #Edicion de imagen
+
+
 editorlbl = tkinter.Label(ventana, text = "Editor de imagen", bg = "#3b6a94")
 editorlbl.place(x=700, y=0)
 
 #ROTACION BOTONES Y LBL'S
+
 rtlbl =tkinter.Label(ventana, text = "Rotación", bg= "#3b6a94")
 rtlbl.place(x=700, y= 35)
 
@@ -141,6 +151,8 @@ mnbtn = tkinter.Button(ventana, text= "-", bg = "#808080")
 mnbtn.pack()
 mnbtn.place(x= 770 ,y=165)
 
+#minimizar maximizar 
+
 masbtn = tkinter.Button (ventana, text = "MAXIMIZAR", bg = "#808080")
 masbtn.pack()
 masbtn.place(x= 700 ,y=195)
@@ -153,11 +165,11 @@ menbtn.place(x =700, y=225 )
 
 ign1 = tkinter.Button(ventana, text ="Imagen 1",command=lambda: escala(600,500), bg = "#808080")
 ign1.pack()
-ign1.place(x= 600, y=620)
+ign1.place(x= 715, y=580)
 
 ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
 ign2.pack()
-ign2.place(x=700, y= 620)
+ign2.place(x=715, y= 620)
 
 
 
