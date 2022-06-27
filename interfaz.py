@@ -1,4 +1,5 @@
 import tkinter
+from main import escala, cut_image
 
 from pkg_resources import ensure_directory
 
@@ -57,7 +58,7 @@ maxbtn = tkinter.Button(ventana, text ="+", bg = "#808080")
 maxbtn.pack()
 maxbtn.place (x=750 , y=135 )
 
-minbtn = tkinter.Button(ventana, text= "-", bg = "#808080")
+minbtn = tkinter.Button(ventana, text= "-", command=lambda: cut_image(100,200,300,400),bg = "#808080")
 minbtn.pack()
 minbtn.place(x= 770 ,y=135)
 
@@ -82,7 +83,7 @@ menbtn.place(x =700, y=225 )
 
 #IMAGENES
 
-ign1 = tkinter.Button(ventana, text ="Imagen 1", bg = "#808080")
+ign1 = tkinter.Button(ventana, text ="Imagen 1",command=lambda: escala(600,500), bg = "#808080")
 ign1.pack()
 ign1.place(x= 600, y=620)
 
