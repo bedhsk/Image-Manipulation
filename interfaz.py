@@ -20,7 +20,7 @@ def rotate_bound(image, angle):
     M[0, 2] += (nW / 2) - cX
     M[1, 2] += (nH / 2) - cY
 
-    return cv2.warpAffine(image, M, (nW, nH), borderMode = cv2.BORDER_CONSTANT, borderValue=(101, 146, 186))
+    return cv2.warpAffine(image, M, (nW, nH), borderMode = cv2.BORDER_CONSTANT, borderValue=(300, 300, 300))
 
 ventana = tkinter.Tk()
 ventana.geometry("800x650")
@@ -38,47 +38,58 @@ image = cvtColor(image, cv2.COLOR_BGR2RGB)
 # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
 im = Image.fromarray(image)
 img = ImageTk.PhotoImage(image=im)
-my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+contador = 0
 
 # Botones de rotación
 def girar_derecha():
     image = cv2.imread('poligon.png')
     image = cvtColor(image, cv2.COLOR_BGR2RGB)
     image = rotate_bound(image, 30)
+    # Incrementar el ángulo de rotación
+    global contador
+    contador +=10
 
+    rotated_image = rotate_bound(image, contador)
+    global img
     # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
-    im = Image.fromarray(image)
+    im = Image.fromarray(rotated_image)
     img = ImageTk.PhotoImage(image=im)
-    my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
 def girar_izquierda():
-    rotatedImg = rotate_bound(image, -10)
+    # Incrementar el ángulo de rotación
+    global contador
+    contador -=10
+
+    rotated_image = rotate_bound(image, contador)
     global img
-    im = Image.fromarray(rotatedImg)
+    # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
+    im = Image.fromarray(rotated_image)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.move(my_image, 0, 0)
-    # my_image = my_canvas.create_image(100, 125, image=img)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
 # Botones de movimiento
 def arriba():
     x = 0
     y = -10
-    my_canvas.move(my_image, x, y)
+    my_canvas.move(my_canvas.my_image, x, y)
 
 def abajo():
     x = 0
     y = 10
-    my_canvas.move(my_image, x, y)
+    my_canvas.move(my_canvas.my_image, x, y)
 
 def derecha():
     x = 10
     y = 0
-    my_canvas.move(my_image, x, y)
+    my_canvas.move(my_canvas.my_image, x, y)
 
 def izquierda():
     x = -10
     y = 0
-    my_canvas.move(my_image, x, y)
+    my_canvas.move(my_canvas.my_image, x, y)
 
 #PESTAÑA 
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
