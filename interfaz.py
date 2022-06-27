@@ -4,6 +4,7 @@ import numpy as np
 from tkinter import *
 from cv2 import cvtColor
 from PIL import ImageTk, Image
+from main import escala, cut_image
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -40,6 +41,25 @@ im = Image.fromarray(image)
 img = ImageTk.PhotoImage(image=im)
 my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+# Botones de rotación
+def girar_derecha():
+    image = cv2.imread('src/zero.png')
+    image = cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = rotate_bound(image, 30)
+
+    # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
+    im = Image.fromarray(image)
+    img = ImageTk.PhotoImage(image=im)
+    my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+def girar_izquierda():
+    rotatedImg = rotate_bound(image, -10)
+    global img
+    im = Image.fromarray(rotatedImg)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.move(my_image, 0, 0)
+    # my_image = my_canvas.create_image(100, 125, image=img)
+
 # Botones de movimiento
 def arriba():
     x = 0
@@ -60,23 +80,6 @@ def izquierda():
     x = -10
     y = 0
     my_canvas.move(my_image, x, y)
-
-# Botones de rotación
-def girar_derecha():
-    rotatedImg = rotate_bound(image, 40)
-    global img
-    im = Image.fromarray(rotatedImg)
-    img = ImageTk.PhotoImage(image=im)
-    my_image = my_canvas.create_image(100, 125, image=img)
-    my_canvas.ref
-
-def girar_izquierda():
-    rotatedImg = rotate_bound(image, -10)
-    global img
-    im = Image.fromarray(rotatedImg)
-    img = ImageTk.PhotoImage(image=im)
-    my_image = my_canvas.create_image(100, 125, image=img)
-
 
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 upbtn.pack()
@@ -123,7 +126,7 @@ maxbtn = tkinter.Button(ventana, text ="+", bg = "#808080")
 maxbtn.pack()
 maxbtn.place (x=750 , y=135 )
 
-minbtn = tkinter.Button(ventana, text= "-", bg = "#808080")
+minbtn = tkinter.Button(ventana, text= "-", command=lambda: cut_image(100,200,300,400),bg = "#808080")
 minbtn.pack()
 minbtn.place(x= 770 ,y=135)
 
@@ -148,7 +151,7 @@ menbtn.place(x =700, y=225 )
 
 #IMAGENES
 
-ign1 = tkinter.Button(ventana, text ="Imagen 1", bg = "#808080")
+ign1 = tkinter.Button(ventana, text ="Imagen 1",command=lambda: escala(600,500), bg = "#808080")
 ign1.pack()
 ign1.place(x= 600, y=620)
 
