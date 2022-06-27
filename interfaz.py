@@ -1,5 +1,5 @@
 import tkinter
-
+from turtle import right
 from pkg_resources import ensure_directory
 
 ventana = tkinter.Tk()
@@ -7,7 +7,13 @@ ventana.geometry("800x650")
 ventana.resizable(False, False)
 ventana.config(background= "#6592ba")
 
+#PESTAÑA 
 
+pslbl = tkinter.Label(ventana, text ="                                     "  , bg ="#3b6a94") 
+pslbl.pack(side= tkinter.RIGHT, fill = tkinter.Y)
+
+
+#fLECHAS
 
 upbtn = tkinter.Button(ventana, text="↑", bg = "#808080")
 upbtn.pack()
@@ -72,6 +78,8 @@ mnbtn = tkinter.Button(ventana, text= "-", bg = "#808080")
 mnbtn.pack()
 mnbtn.place(x= 770 ,y=165)
 
+#minimizar maximizar 
+
 masbtn = tkinter.Button (ventana, text = "MAXIMIZAR", bg = "#808080")
 masbtn.pack()
 masbtn.place(x= 700 ,y=195)
@@ -84,11 +92,11 @@ menbtn.place(x =700, y=225 )
 
 ign1 = tkinter.Button(ventana, text ="Imagen 1", bg = "#808080")
 ign1.pack()
-ign1.place(x= 600, y=620)
+ign1.place(x= 715, y=580)
 
 ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
 ign2.pack()
-ign2.place(x=700, y= 620)
+ign2.place(x=715, y= 620)
 
 
 

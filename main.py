@@ -2,6 +2,7 @@ from cv2 import cvtColor
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import tkinter
 
 image = cv2.imread('src/src.png')
 image = cvtColor(image, cv2.COLOR_BGR2RGB)
