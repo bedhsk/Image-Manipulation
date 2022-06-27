@@ -1,13 +1,10 @@
 import cv2
 import tkinter
-<<<<<<< HEAD
 import numpy as np
 from tkinter import *
 from cv2 import cvtColor
 from PIL import ImageTk, Image
-=======
 from main import escala, cut_image
->>>>>>> 69fcccac190522f0d566b248de8ac1871a24ca2d
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
