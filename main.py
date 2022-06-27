@@ -25,6 +25,20 @@ def cut_image(x1,y1,x2,y2):
     imageOut2= image[x1:y1,x2:y2]
     plt.imshow(imageOut2)
 
+#contador
+def contar(valor):
+    contador=0 
+    while True:
+        try:
+            valor[contador]
+            contador +=10
+        except IndexError:
+            break
+    return contador
+
+
+
+
 # Mostrar imágen
 plt.imshow(imgOut)
 plt.show()

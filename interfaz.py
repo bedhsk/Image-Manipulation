@@ -4,7 +4,7 @@ from cv2 import cvtColor
 import numpy as np
 from tkinter import *
 from PIL import ImageTk, Image
-
+from main import contar, cut_image
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
     (cX, cY) = (w // 2, h // 2)
@@ -32,7 +32,7 @@ my_canvas = tkinter.Canvas(ventana, width=500, height=550, bg="white")
 my_canvas.pack(pady=20)
 
 # Añadir una imágen al canvas
-image = cv2.imread('src/zero.png')
+image = cv2.imread('poligon.png')
 image = cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
@@ -42,7 +42,7 @@ my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
 # Botones de rotación
 def girar_derecha():
-    image = cv2.imread('src/zero.png')
+    image = cv2.imread('poligon.png')
     image = cvtColor(image, cv2.COLOR_BGR2RGB)
     image = rotate_bound(image, 30)
 
