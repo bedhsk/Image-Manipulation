@@ -1,7 +1,6 @@
 import tkinter
 import cv2
 from cv2 import cvtColor
-from cv2 import resize
 import numpy as np
 from tkinter import *
 from PIL import ImageTk, Image
