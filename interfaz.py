@@ -1,7 +1,7 @@
 import tkinter
 import cv2
 from cv2 import cvtColor
-from cv2 import resize
+from cv2 import imread, resize
 import numpy as np
 from tkinter import *
 from PIL import ImageTk, Image
@@ -25,6 +25,61 @@ def mezcla():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+def blue():
+    image1=cv2.imread('fumetsu.jpg') 
+    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    
+    image1[:,:,0]=0
+    image1[:,:,1]=0
+    global img
+    im = Image.fromarray(image1)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+def red():
+    image1=cv2.imread('fumetsu.jpg') 
+    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    
+    image1[:,:,1]=0
+    image1[:,:,2]=0
+    global img
+    im = Image.fromarray(image1)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+def green():
+    image1=cv2.imread('fumetsu.jpg') 
+    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    
+    image1[:,:,0]=0
+    image1[:,:,2]=0
+    global img
+    im = Image.fromarray(image1)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+
+
+D1=0
+D2=300
+C1 = 0
+C2 = 300
+def importar(x1,x2,y1,y2):
+    global D2 
+    D2=y2
+    global D1 
+    D1=y1
+    image = imread('fumetsu.jpg')
+    image = cv2.resize(image,(1280,720))
+    f, c, p = image.shape
+
+    capa_color = np.zeros((f, c, p), dtype=np.uint8)
+    capa_color[x1:x2, y1:y2] = (225,0,0)
+
+    trans = cv2.add(image, capa_color)
+    global img
+    im = Image.fromarray(trans)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
 
 
@@ -253,6 +308,46 @@ menbtn.place(x =700, y=225 )
 ign1 = tkinter.Button(ventana, text ="Transposición",command= mezcla, bg = "#808080")
 ign1.pack()
 ign1.place(x= 715, y=580)
+
+#Colores
+verde = tkinter.Button(ventana, text ="Verde",command=green, bg = "#808080")
+verde.pack()
+verde.place(x= 715, y=440)
+
+azul = tkinter.Button(ventana, text ="Azul  ",command=blue, bg = "#808080")
+azul.pack()
+azul.place(x=715, y= 480)
+
+rojo = tkinter.Button(ventana, text ="Rojo  ",command=red, bg = "#808080")
+rojo.pack()
+rojo.place(x=715, y= 520)
+
+#Colorear
+
+clbl = tkinter.Label(ventana, text = "Colorear", bg= "#3b6a94" )
+clbl.place(x=700, y= 255 )
+
+albl = tkinter.Label(ventana, text = "Ancho", bg= "#3b6a94")
+albl.place(x= 700, y= 285)
+
+maxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2,D1,D2+200), bg = "#808080")
+maxtn.pack()
+maxtn.place (x=750 , y=285 )
+
+mintn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2,D1,D2-200),bg = "#808080")
+mintn.pack()
+mintn.place(x= 770 ,y=285)
+
+alll = tkinter.Label(ventana, text= "Alto", bg= "#3b6a94" )
+alll.place(x=700 , y=315)
+
+mxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2+200,D1,D2), bg = "#808080")
+mxtn.pack()
+mxtn.place (x=750 , y=315 )
+
+mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-200,D1,D2), bg = "#808080")
+mntn.pack()
+mntn.place(x= 770 ,y=315)
 """
 ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
 ign2.pack()
