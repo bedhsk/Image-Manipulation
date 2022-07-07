@@ -70,17 +70,20 @@ C2 = 300
 r = g = b = 0
 
 # Aplicar un rectángulo de color sobre la imagen
-def importar(x1,x2,y1,y2,r,g,b):
+def importar(x1,x2,y1,y2):
     global D2 
     D2=y2
     global D1 
     D1=y1
-    image = imread('fumetsu.jpg')
-    image = cv2.resize(image,(1280,720))
+    global C1 
+    C1=x1
+    global C2 
+    C2=x2
+
     f, c, p = image.shape
 
     capa_color = np.zeros((f, c, p), dtype=np.uint8)
-    capa_color[x1:x2, y1:y2] = (r,g,b)
+    capa_color[x1:x2, y1:y2] = (225,0,0)
 
     trans = cv2.add(image, capa_color)
     global img
@@ -320,22 +323,22 @@ clbl.place(x=700, y= 255 )
 albl = tkinter.Label(ventana, text = "Ancho", bg= "#3b6a94")
 albl.place(x= 700, y= 285)
 
-maxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2,D1,D2+200), bg = "#808080")
+maxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2,D1,D2+50), bg = "#808080")
 maxtn.pack()
 maxtn.place (x=750 , y=285 )
 
-mintn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2,D1,D2-200),bg = "#808080")
+mintn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2,D1,D2-50),bg = "#808080")
 mintn.pack()
 mintn.place(x= 770 ,y=285)
 
 alll = tkinter.Label(ventana, text= "Alto", bg= "#3b6a94" )
 alll.place(x=700 , y=315)
 
-mxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2+200,D1,D2), bg = "#808080")
+mxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2+50,D1,D2), bg = "#808080")
 mxtn.pack()
 mxtn.place (x=750 , y=315 )
 
-mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-200,D1,D2), bg = "#808080")
+mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-50,D1,D2), bg = "#808080")
 mntn.pack()
 mntn.place(x= 770 ,y=315)
 
