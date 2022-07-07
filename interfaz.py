@@ -83,7 +83,7 @@ def importar(x1,x2,y1,y2):
     f, c, p = image.shape
 
     capa_color = np.zeros((f, c, p), dtype=np.uint8)
-    capa_color[x1:x2, y1:y2] = (225,0,0)
+    capa_color[x1:x2, y1:y2] = (r,g,b)
 
     trans = cv2.add(image, capa_color)
     global img
@@ -270,6 +270,23 @@ def cut_image(x1,y1,x2,y2):
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+def change_color(rojo,verde,azul):
+    global r,g,b
+    if(rojo>0):
+        r=rojo
+        g=0
+        b=0
+    if(verde>0):
+        g=verde
+        r=0
+        b=0
+    if(azul>0):
+        b=azul
+        g=0
+        r=0
+    importar(C1,C2,D1,D2)
+    
+
 maxbtn = tkinter.Button(ventana, text ="+",command=lambda:cut_image(A1,B1,A2,B2+200), bg = "#808080")
 maxbtn.pack()
 maxbtn.place (x=750 , y=135 )
@@ -301,20 +318,37 @@ menbtn.place(x =700, y=225 )
 #IMAGENES
 ign1 = tkinter.Button(ventana, text ="Transposición",command= mezcla, bg = "#808080")
 ign1.pack()
-ign1.place(x= 715, y=580)
+ign1.place(x= 700, y=600)
 
+#FLECHAS CUADRO
+up = tkinter.Button(ventana, text="↑",  bg = "#808080")
+up.pack()
+up.place(x= 720, y=400)
+
+
+down = tkinter.Button(ventana, text="↓",  bg = "#808080")
+down.pack()
+down.place(x=720 , y= 425)
+
+left = tkinter.Button(ventana, text="←", bg = "#808080")
+left.pack()
+left.place(x= 700, y= 425)
+
+right = tkinter.Button(ventana, text="→", bg = "#808080")
+right.pack()
+right.place(x=735, y=425)
 #Colores
 verde = tkinter.Button(ventana, text ="Verde",command=green, bg = "#808080")
 verde.pack()
-verde.place(x= 715, y=440)
+verde.place(x= 715, y=480)
 
-azul = tkinter.Button(ventana, text ="Azul  ",command=blue, bg = "#808080")
+azul = tkinter.Button(ventana, text ="Azul",command=blue, bg = "#808080")
 azul.pack()
-azul.place(x=715, y= 480)
+azul.place(x=715, y= 520)
 
-rojo = tkinter.Button(ventana, text ="Rojo  ",command=red, bg = "#808080")
+rojo = tkinter.Button(ventana, text ="Rojo",command=red, bg = "#808080")
 rojo.pack()
-rojo.place(x=715, y= 520)
+rojo.place(x=715, y= 560)
 
 #Colorear
 clbl = tkinter.Label(ventana, text = "Colorear", bg= "#3b6a94" )
@@ -342,10 +376,16 @@ mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-50,D1,D2)
 mntn.pack()
 mntn.place(x= 770 ,y=315)
 
-"""
-ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
-ign2.pack()
-ign2.place(x=715, y= 620)
-"""
+v = tkinter.Button(ventana, text ="R",command=lambda:change_color(255,0,0), bg = "#808080")
+v.pack()
+v.place(x= 700, y=360)
+
+a = tkinter.Button(ventana, text ="G",command=lambda:change_color(0,255,0), bg = "#808080")
+a.pack()
+a.place(x=720, y= 360)
+
+r = tkinter.Button(ventana, text ="B",command=lambda:change_color(0,0,255), bg = "#808080")
+r.pack()
+r.place(x=740, y= 360)
 
 ventana.mainloop()
