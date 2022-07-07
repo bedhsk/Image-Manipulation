@@ -265,7 +265,7 @@ def cut_image(x1,y1,x2,y2):
     global img
     im = Image.fromarray(cut)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 def change_color(rojo,verde,azul):
     global r,g,b
