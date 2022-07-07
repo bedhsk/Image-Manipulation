@@ -318,20 +318,20 @@ ign1.pack()
 ign1.place(x= 700, y=600)
 
 #FLECHAS CUADRO
-up = tkinter.Button(ventana, text="↑",  bg = "#808080")
+up = tkinter.Button(ventana, text="↑",command=lambda:importar(C1-25,C2-25,D1,D2),  bg = "#808080")
 up.pack()
 up.place(x= 720, y=400)
 
 
-down = tkinter.Button(ventana, text="↓",  bg = "#808080")
+down = tkinter.Button(ventana, text="↓",command=lambda:importar(C1+25,C2+25,D1,D2),  bg = "#808080")
 down.pack()
 down.place(x=720 , y= 425)
 
-left = tkinter.Button(ventana, text="←", bg = "#808080")
+left = tkinter.Button(ventana, text="←",command=lambda:importar(C1,C2,D1-25,D2-25), bg = "#808080")
 left.pack()
 left.place(x= 700, y= 425)
 
-right = tkinter.Button(ventana, text="→", bg = "#808080")
+right = tkinter.Button(ventana, text="→",command=lambda:importar(C1,C2,D1+25,D2+25), bg = "#808080")
 right.pack()
 right.place(x=735, y=425)
 #Colores
