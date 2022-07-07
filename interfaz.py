@@ -23,43 +23,40 @@ def mezcla():
     global img
     im = Image.fromarray(imagen_1)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 # Aplicar color azul sobre la imagen
 def blue():
-    image1=cv2.imread('fumetsu.jpg') 
-    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    copia = np.copy(image)
     
-    image1[:,:,0]=0
-    image1[:,:,1]=0
+    copia[:,:,0]=0
+    copia[:,:,1]=0
     global img
-    im = Image.fromarray(image1)
+    im = Image.fromarray(copia)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 # Aplicar color rojo sobre la imagen
 def red():
-    image1=cv2.imread('fumetsu.jpg') 
-    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    copia = np.copy(image)
     
-    image1[:,:,1]=0
-    image1[:,:,2]=0
+    copia[:,:,1]=0
+    copia[:,:,2]=0
     global img
-    im = Image.fromarray(image1)
+    im = Image.fromarray(copia)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 # Aplicar color verde sobre la imagen
 def green():
-    image1=cv2.imread('fumetsu.jpg') 
-    image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+    copia = np.copy(image)
     
-    image1[:,:,0]=0
-    image1[:,:,2]=0
+    copia[:,:,0]=0
+    copia[:,:,2]=0
     global img
-    im = Image.fromarray(image1)
+    im = Image.fromarray(copia)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 # Variables globales para aplicar un rectángulo de color sobre la imagen
 D1=0
@@ -89,7 +86,7 @@ def importar(x1,x2,y1,y2):
     global img
     im = Image.fromarray(trans)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -126,7 +123,7 @@ image = cvtColor(image, cv2.COLOR_BGR2RGB)
 # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
 im = Image.fromarray(image)
 img = ImageTk.PhotoImage(image=im)
-my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 angulo = 0
 escalado = 0
