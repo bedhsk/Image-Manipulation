@@ -1,6 +1,8 @@
+#Participantes: Brian Bazt, Arge Reyes, Marti Pérez
 import tkinter
 import cv2
 from cv2 import cvtColor
+from cv2 import imread, resize
 import numpy as np
 from tkinter import *
 from PIL import ImageTk, Image
@@ -22,10 +24,70 @@ def mezcla():
     global img
     im = Image.fromarray(imagen_1)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
+# Aplicar color azul sobre la imagen
+def blue():
+    copia = np.copy(image)
+    
+    copia[:,:,0]=0
+    copia[:,:,1]=0
+    global img
+    im = Image.fromarray(copia)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
+# Aplicar color rojo sobre la imagen
+def red():
+    copia = np.copy(image)
+    
+    copia[:,:,1]=0
+    copia[:,:,2]=0
+    global img
+    im = Image.fromarray(copia)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
+# Aplicar color verde sobre la imagen
+def green():
+    copia = np.copy(image)
+    
+    copia[:,:,0]=0
+    copia[:,:,2]=0
+    global img
+    im = Image.fromarray(copia)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
+
+# Variables globales para aplicar un rectángulo de color sobre la imagen
+D1=0
+D2=300
+C1 = 0
+C2 = 300
+# Variables globales para controlar el color del rectángulo
+r = g = b = 0
+
+# Aplicar un rectángulo de color sobre la imagen
+def importar(x1,x2,y1,y2):
+    global D2 
+    D2=y2
+    global D1 
+    D1=y1
+    global C1 
+    C1=x1
+    global C2 
+    C2=x2
+
+    f, c, p = image.shape
+
+    capa_color = np.zeros((f, c, p), dtype=np.uint8)
+    capa_color[x1:x2, y1:y2] = (r,g,b)
+
+    trans = cv2.add(image, capa_color)
+    global img
+    im = Image.fromarray(trans)
+    img = ImageTk.PhotoImage(image=im)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -62,7 +124,7 @@ image = cvtColor(image, cv2.COLOR_BGR2RGB)
 # Convirtiendo la imagen del formato de imutils a tkinter y añadiendola al canvas
 im = Image.fromarray(image)
 img = ImageTk.PhotoImage(image=im)
-my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
 angulo = 0
 escalado = 0
@@ -87,8 +149,6 @@ def zoom():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
-
-
 def min():
     global angulo
     angulo = 0
@@ -103,10 +163,6 @@ def min():
     im = Image.fromarray(rezim)
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
-
-
-
-
 
 # Botones de rotación
 def girar_derecha():
@@ -157,9 +213,7 @@ def izquierda():
 #PESTAÑA 
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 
-
-#fLECHAS
-
+#FLECHAS
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 upbtn.pack()
 upbtn.place(x= 20, y=600)
@@ -178,13 +232,10 @@ rightbtn.pack()
 rightbtn.place(x=35, y=625)
 
 #Edicion de imagen
-
-
 editorlbl = tkinter.Label(ventana, text = "Editor de imagen", bg = "#3b6a94")
 editorlbl.place(x=700, y=0)
 
 #ROTACION BOTONES Y LBL'S
-
 rtlbl =tkinter.Label(ventana, text = "Rotación", bg= "#3b6a94")
 rtlbl.place(x=700, y= 35)
 
@@ -197,7 +248,6 @@ ribtn.pack()
 ribtn.place(x= 730, y=70 )
 
 #Cortar
-
 ctlbl = tkinter.Label(ventana, text = "Cortar", bg= "#3b6a94" )
 ctlbl.place(x=700, y= 105 )
 
@@ -216,7 +266,24 @@ def cut_image(x1,y1,x2,y2):
     global img
     im = Image.fromarray(cut)
     img = ImageTk.PhotoImage(image=im)
-    my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
+    my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
+
+def change_color(rojo,verde,azul):
+    global r,g,b
+    if(rojo>0):
+        r=rojo
+        g=0
+        b=0
+    if(verde>0):
+        g=verde
+        r=0
+        b=0
+    if(azul>0):
+        b=azul
+        g=0
+        r=0
+    importar(C1,C2,D1,D2)
+    
 
 maxbtn = tkinter.Button(ventana, text ="+",command=lambda:cut_image(A1,B1,A2,B2+200), bg = "#808080")
 maxbtn.pack()
@@ -238,7 +305,6 @@ mnbtn.pack()
 mnbtn.place(x= 770 ,y=165)
 
 #minimizar maximizar 
-
 masbtn = tkinter.Button (ventana, text = "MAXIMIZAR", command = zoom, bg = "#808080")
 masbtn.pack()
 masbtn.place(x= 700 ,y=195)
@@ -248,15 +314,76 @@ menbtn.pack()
 menbtn.place(x =700, y=225 )
 
 #IMAGENES
-
 ign1 = tkinter.Button(ventana, text ="Transposición",command= mezcla, bg = "#808080")
 ign1.pack()
-ign1.place(x= 715, y=580)
-"""
-ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
-ign2.pack()
-ign2.place(x=715, y= 620)
-"""
+ign1.place(x= 700, y=600)
 
+#FLECHAS CUADRO
+up = tkinter.Button(ventana, text="↑",command=lambda:importar(C1-25,C2-25,D1,D2),  bg = "#808080")
+up.pack()
+up.place(x= 720, y=400)
+
+
+down = tkinter.Button(ventana, text="↓",command=lambda:importar(C1+25,C2+25,D1,D2),  bg = "#808080")
+down.pack()
+down.place(x=720 , y= 425)
+
+left = tkinter.Button(ventana, text="←",command=lambda:importar(C1,C2,D1-25,D2-25), bg = "#808080")
+left.pack()
+left.place(x= 700, y= 425)
+
+right = tkinter.Button(ventana, text="→",command=lambda:importar(C1,C2,D1+25,D2+25), bg = "#808080")
+right.pack()
+right.place(x=735, y=425)
+#Colores
+verde = tkinter.Button(ventana, text ="Verde",command=green, bg = "#808080")
+verde.pack()
+verde.place(x= 715, y=480)
+
+azul = tkinter.Button(ventana, text ="Azul",command=blue, bg = "#808080")
+azul.pack()
+azul.place(x=715, y= 520)
+
+rojo = tkinter.Button(ventana, text ="Rojo",command=red, bg = "#808080")
+rojo.pack()
+rojo.place(x=715, y= 560)
+
+#Colorear
+clbl = tkinter.Label(ventana, text = "Colorear", bg= "#3b6a94" )
+clbl.place(x=700, y= 255 )
+
+albl = tkinter.Label(ventana, text = "Ancho", bg= "#3b6a94")
+albl.place(x= 700, y= 285)
+
+maxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2,D1,D2+50), bg = "#808080")
+maxtn.pack()
+maxtn.place (x=750 , y=285 )
+
+mintn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2,D1,D2-50),bg = "#808080")
+mintn.pack()
+mintn.place(x= 770 ,y=285)
+
+alll = tkinter.Label(ventana, text= "Alto", bg= "#3b6a94" )
+alll.place(x=700 , y=315)
+
+mxtn = tkinter.Button(ventana, text ="+",command=lambda:importar(C1,C2+50,D1,D2), bg = "#808080")
+mxtn.pack()
+mxtn.place (x=750 , y=315 )
+
+mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-50,D1,D2), bg = "#808080")
+mntn.pack()
+mntn.place(x= 770 ,y=315)
+
+v = tkinter.Button(ventana, text ="R",command=lambda:change_color(255,0,0), bg = "#808080")
+v.pack()
+v.place(x= 700, y=360)
+
+a = tkinter.Button(ventana, text ="G",command=lambda:change_color(0,255,0), bg = "#808080")
+a.pack()
+a.place(x=720, y= 360)
+
+r = tkinter.Button(ventana, text ="B",command=lambda:change_color(0,0,255), bg = "#808080")
+r.pack()
+r.place(x=740, y= 360)
 
 ventana.mainloop()
