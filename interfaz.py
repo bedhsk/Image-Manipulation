@@ -1,3 +1,4 @@
+#Participantes: Brian Bazt, Arge Reyes, Marti Pérez
 import tkinter
 import cv2
 from cv2 import cvtColor
