@@ -25,6 +25,7 @@ def mezcla():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+# Aplicar color azul sobre la imagen
 def blue():
     image1=cv2.imread('fumetsu.jpg') 
     image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
@@ -36,6 +37,7 @@ def blue():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+# Aplicar color rojo sobre la imagen
 def red():
     image1=cv2.imread('fumetsu.jpg') 
     image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
@@ -47,6 +49,7 @@ def red():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
+# Aplicar color verde sobre la imagen
 def green():
     image1=cv2.imread('fumetsu.jpg') 
     image1= cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
@@ -58,12 +61,16 @@ def green():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
 
-
+# Variables globales para aplicar un rectángulo de color sobre la imagen
 D1=0
 D2=300
 C1 = 0
 C2 = 300
-def importar(x1,x2,y1,y2):
+# Variables globales para controlar el color del rectángulo
+r = g = b = 0
+
+# Aplicar un rectángulo de color sobre la imagen
+def importar(x1,x2,y1,y2,r,g,b):
     global D2 
     D2=y2
     global D1 
@@ -73,15 +80,13 @@ def importar(x1,x2,y1,y2):
     f, c, p = image.shape
 
     capa_color = np.zeros((f, c, p), dtype=np.uint8)
-    capa_color[x1:x2, y1:y2] = (225,0,0)
+    capa_color[x1:x2, y1:y2] = (r,g,b)
 
     trans = cv2.add(image, capa_color)
     global img
     im = Image.fromarray(trans)
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(100, 125, anchor=NW, image=img)
-
-
 
 def rotate_bound(image, angle):
     (h, w) = image.shape[:2]
@@ -143,8 +148,6 @@ def zoom():
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
 
-
-
 def min():
     global angulo
     angulo = 0
@@ -159,10 +162,6 @@ def min():
     im = Image.fromarray(rezim)
     img = ImageTk.PhotoImage(image=im)
     my_canvas.my_image = my_canvas.create_image(10, 10, anchor=NW, image=img)
-
-
-
-
 
 # Botones de rotación
 def girar_derecha():
@@ -213,9 +212,7 @@ def izquierda():
 #PESTAÑA 
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 
-
-#fLECHAS
-
+#FLECHAS
 upbtn = tkinter.Button(ventana, text="↑", command=arriba, bg = "#808080")
 upbtn.pack()
 upbtn.place(x= 20, y=600)
@@ -234,13 +231,10 @@ rightbtn.pack()
 rightbtn.place(x=35, y=625)
 
 #Edicion de imagen
-
-
 editorlbl = tkinter.Label(ventana, text = "Editor de imagen", bg = "#3b6a94")
 editorlbl.place(x=700, y=0)
 
 #ROTACION BOTONES Y LBL'S
-
 rtlbl =tkinter.Label(ventana, text = "Rotación", bg= "#3b6a94")
 rtlbl.place(x=700, y= 35)
 
@@ -253,7 +247,6 @@ ribtn.pack()
 ribtn.place(x= 730, y=70 )
 
 #Cortar
-
 ctlbl = tkinter.Label(ventana, text = "Cortar", bg= "#3b6a94" )
 ctlbl.place(x=700, y= 105 )
 
@@ -294,7 +287,6 @@ mnbtn.pack()
 mnbtn.place(x= 770 ,y=165)
 
 #minimizar maximizar 
-
 masbtn = tkinter.Button (ventana, text = "MAXIMIZAR", command = zoom, bg = "#808080")
 masbtn.pack()
 masbtn.place(x= 700 ,y=195)
@@ -304,7 +296,6 @@ menbtn.pack()
 menbtn.place(x =700, y=225 )
 
 #IMAGENES
-
 ign1 = tkinter.Button(ventana, text ="Transposición",command= mezcla, bg = "#808080")
 ign1.pack()
 ign1.place(x= 715, y=580)
@@ -323,7 +314,6 @@ rojo.pack()
 rojo.place(x=715, y= 520)
 
 #Colorear
-
 clbl = tkinter.Label(ventana, text = "Colorear", bg= "#3b6a94" )
 clbl.place(x=700, y= 255 )
 
@@ -348,11 +338,11 @@ mxtn.place (x=750 , y=315 )
 mntn = tkinter.Button(ventana, text= "-",command=lambda:importar(C1,C2-200,D1,D2), bg = "#808080")
 mntn.pack()
 mntn.place(x= 770 ,y=315)
+
 """
 ign2 = tkinter.Button(ventana, text ="Imagen 2", bg = "#808080")
 ign2.pack()
 ign2.place(x=715, y= 620)
 """
-
 
 ventana.mainloop()
